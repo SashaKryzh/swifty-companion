@@ -16,6 +16,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        var viewController: UIViewController
+        
+        if (true) {
+            viewController = mainStoryboard.instantiateViewController(withIdentifier: "signInVC")
+        } else {
+            viewController = mainStoryboard.instantiateViewController(withIdentifier: "mainVC")
+        }
+        
+        self.window?.rootViewController = viewController
+        
+        self.window?.makeKeyAndVisible()
+        
         return true
     }
 
