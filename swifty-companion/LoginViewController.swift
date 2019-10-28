@@ -17,8 +17,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func signInButtonTapped(_ sender: UIButton) {
-        let api = IntraApi()
-        api.signIn()
+        IntraApi.authorize()
 //        performSegue(withIdentifier: "toMainVC", sender: nil)
     }
     

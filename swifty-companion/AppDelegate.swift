@@ -13,7 +13,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -28,10 +27,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         self.window?.rootViewController = viewController
-        
         self.window?.makeKeyAndVisible()
         
         return true
+    }
+    
+    func application(_ application: UIApplication,
+                     open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey : Any] = [:] ) -> Bool {
+        
+        // Process the URL.
+        guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true),
+            let params = components.queryItems else {
+                print("Invalid URL")
+                return false
+        }
+    
+        if let code = params.first(where: { $0.name == "code" })?.value {
+            print(code)
+            IntraApi.codeToToken(code: code, completition: { accessToken in
+                if let token = accessToken {
+                    print(token)
+                    DispatchQueue.main.async {
+                        self.window?.rootViewController?.performSegue(withIdentifier: "toMainVC", sender: nil)
+                    }
+                } else {
+                    print("Token is nil")
+                }
+            })
+            return true
+        } else {
+            print("Code is missing")
+            return false
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
