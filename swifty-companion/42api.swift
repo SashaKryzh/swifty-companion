@@ -12,12 +12,24 @@ class IntraApi {
     static let uid = "da438907119c5ef7d7cde41b0690c30e58a8899a67f0cfa31fea31b3c933b62c"
     static let secret = "de1fdafbbe018cbf435e735ebefb52620cabaa5a2ba5349cc681f8dee4d95c16"
     
+    static let baseURL = "https://api.intra.42.fr/v2"
+    
+    static let accessTokenKey = "accessTokenKey"
     static var accessToken: String?
     
+    static var user: IntraUser?
+    
     static func authorize() {
-        if let url = URL(string: "https://api.intra.42.fr/oauth/authorize?client_id=da438907119c5ef7d7cde41b0690c30e58a8899a67f0cfa31fea31b3c933b62c&redirect_uri=swifty-companion%3A%2F%2Fswifty-companion&response_type=code") {
+        if let url = URL(string: "https://api.intra.42.fr/oauth/authorize?client_id=da438907119c5ef7d7cde41b0690c30e58a8899a67f0cfa31fea31b3c933b62c&redirect_uri=swifty-companion%3A%2F%2Fswifty-companion&response_type=code&scope=public%20profile%20projects%20forum") {
             UIApplication.shared.open(url)
         }
+    }
+    
+    static func signOut() {
+        let defaults = UserDefaults.standard
+        defaults.removeObject(forKey: accessTokenKey)
+        accessToken = nil
+        user = nil
     }
     
     static func codeToToken(code: String, completition: @escaping (_ accessToken: String?) -> Void) {
@@ -49,6 +61,9 @@ class IntraApi {
                 let json = try JSONSerialization.jsonObject(with: data) as! Dictionary<String, Any>
                 print(json)
                 accessToken = json["access_token"] as? String
+                if let token = accessToken {
+                    saveToken(token: token)
+                }
                 completition(accessToken)
             } catch {
                 print(error)
@@ -57,26 +72,89 @@ class IntraApi {
         }
         task.resume()
     }
-}
-
-extension Dictionary {
-    func percentEscaped() -> String {
-        return map { (key, value) in
-            let escapedKey = "\(key)".addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? ""
-            let escapedValue = "\(value)".addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? ""
-            return escapedKey + "=" + escapedValue
-            }
-            .joined(separator: "&")
-    }
-}
-
-extension CharacterSet {
-    static let urlQueryValueAllowed: CharacterSet = {
-        let generalDelimitersToEncode = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
-        let subDelimitersToEncode = "!$&'()*+,;="
+    
+    static func aboutMe(completition: @escaping ((IntraUser?) -> Void)) {
+        if let user = user {
+            completition(user)
+        }
         
-        var allowed = CharacterSet.urlQueryAllowed
-        allowed.remove(charactersIn: "\(generalDelimitersToEncode)\(subDelimitersToEncode)")
-        return allowed
-    }()
+        guard let token = accessToken else { return }
+        
+        let url = URL(string: baseURL + "/me")!
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+            (data, response, url) in
+            guard let data = data else { return }
+            print("JSON String: \(String(data: data, encoding: .utf8) ?? "")")
+            user = try? JSONDecoder().decode(IntraUser.self, from: data)
+            DispatchQueue.main.async {
+                completition(user)
+            }
+        })
+        task.resume()
+    }
+    
+    static func getUser(userLogin: String, completition: @escaping ((IntraUser) -> Void)) {
+        guard let token = accessToken else { return }
+        
+        let url = URL(string: baseURL + "/\(userLogin.lowercased())")!
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+            (data, response, url) in
+            guard let data = data else { return }
+            print("JSON String: \(String(data: data, encoding: .utf8) ?? "")")
+            user = try? JSONDecoder().decode(IntraUser.self, from: data)
+            guard let user = user else { return }
+            DispatchQueue.main.async {
+                completition(user)
+            }
+        })
+        task.resume()
+    }
+    
+    static func getUsers(page: Int, completition: @escaping (([IntraUser]) -> Void)) {
+        guard let token = accessToken else { return }
+        
+        var comp = URLComponents(string: baseURL + "/users")!
+        comp.queryItems = [
+            URLQueryItem(name: "page", value: page.description)
+        ]
+        
+        var request = URLRequest(url: comp.url!)
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+            (data, response, url) in
+            guard let data = data else { return }
+            print("JSON String: \(String(data: data, encoding: .utf8) ?? "")")
+            
+            do {
+//                let json = try JSONSerialization.jsonObject(with: data) as! Array<Dictionary<String, Any>>
+//                var users: [IntraUser] = []
+//                for user in json {
+//                    users.append(try! JSONDecoder().decode(IntraUser.self, from: D)
+//                }
+                let users = try JSONDecoder().decode([IntraUser].self, from: data)
+                DispatchQueue.main.async {
+                    completition(users)
+                }
+            } catch {
+                print(error)
+            }
+        })
+        task.resume()
+    }
+    
+    static func saveToken(token: String) {
+        let defaults = UserDefaults.standard
+        defaults.set(token, forKey: accessTokenKey)
+    }
+    
+    static func getToken() -> String? {
+        let defaults = UserDefaults.standard
+        accessToken = defaults.string(forKey: accessTokenKey)
+        return accessToken
+    }
 }

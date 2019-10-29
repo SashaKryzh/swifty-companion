@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		F04A3086235F09F300B3C0EE /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04A3085235F09F300B3C0EE /* ProfileViewController.swift */; };
 		F04A3088235F0EA500B3C0EE /* FindTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04A3087235F0EA500B3C0EE /* FindTableViewController.swift */; };
+		F08D25A42367321600BDCB81 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D25A32367321600BDCB81 /* User.swift */; };
+		F08D25A62367356F00BDCB81 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D25A52367356F00BDCB81 /* Extensions.swift */; };
 		F096361F235F1B6B004B0DC0 /* 42api.swift in Sources */ = {isa = PBXBuildFile; fileRef = F096361E235F1B6B004B0DC0 /* 42api.swift */; };
 		F0963621235F28BF004B0DC0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0963620235F28BF004B0DC0 /* LoginViewController.swift */; };
 		F0B18F71235F064F00CEA910 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B18F70235F064F00CEA910 /* AppDelegate.swift */; };
@@ -39,6 +41,8 @@
 /* Begin PBXFileReference section */
 		F04A3085235F09F300B3C0EE /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F04A3087235F0EA500B3C0EE /* FindTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTableViewController.swift; sourceTree = "<group>"; };
+		F08D25A32367321600BDCB81 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F08D25A52367356F00BDCB81 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F096361E235F1B6B004B0DC0 /* 42api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 42api.swift; sourceTree = "<group>"; };
 		F0963620235F28BF004B0DC0 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F0B18F6D235F064F00CEA910 /* swifty-companion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swifty-companion.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +84,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F08D25A2236731EA00BDCB81 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				F08D25A32367321600BDCB81 /* User.swift */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
 		F0B18F64235F064F00CEA910 = {
 			isa = PBXGroup;
 			children = (
@@ -103,9 +115,11 @@
 		F0B18F6F235F064F00CEA910 /* swifty-companion */ = {
 			isa = PBXGroup;
 			children = (
+				F08D25A2236731EA00BDCB81 /* Modules */,
 				F0B18F70235F064F00CEA910 /* AppDelegate.swift */,
 				F096361E235F1B6B004B0DC0 /* 42api.swift */,
 				F04A3087235F0EA500B3C0EE /* FindTableViewController.swift */,
+				F08D25A52367356F00BDCB81 /* Extensions.swift */,
 				F04A3085235F09F300B3C0EE /* ProfileViewController.swift */,
 				F0963620235F28BF004B0DC0 /* LoginViewController.swift */,
 				F0B18F74235F064F00CEA910 /* Main.storyboard */,
@@ -267,9 +281,11 @@
 			files = (
 				F04A3088235F0EA500B3C0EE /* FindTableViewController.swift in Sources */,
 				F04A3086235F09F300B3C0EE /* ProfileViewController.swift in Sources */,
+				F08D25A42367321600BDCB81 /* User.swift in Sources */,
 				F096361F235F1B6B004B0DC0 /* 42api.swift in Sources */,
 				F0963621235F28BF004B0DC0 /* LoginViewController.swift in Sources */,
 				F0B18F71235F064F00CEA910 /* AppDelegate.swift in Sources */,
+				F08D25A62367356F00BDCB81 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

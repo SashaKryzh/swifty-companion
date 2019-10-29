@@ -8,15 +8,50 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UITableViewController {
 
+    var userId: Int?
+    var user: IntraUser?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        if let userId = userId {
+            print(userId)
+        } else {
+//            getAboutMe()
+            getUser(userLogin: "okryzhan")
+        }
     }
     
-
+    func getAboutMe() {
+        IntraApi.aboutMe(completition: { user in
+            self.user = user
+            guard let user = self.user else {
+                print("User is empty")
+                return
+            }
+            print(user)
+        })
+    }
+    
+    func getUser(userLogin: String) {
+        IntraApi.getUser(userLogin: userLogin, completition: { user in
+            self.user = user
+            guard let user = self.user else {
+                print("User is empty")
+                return
+            }
+            print(user)
+        })
+    }
+    
+    @IBAction func signOutPressed(_ sender: UIBarButtonItem) {
+        IntraApi.signOut()
+        let appDelegate =  UIApplication.shared.delegate as? AppDelegate
+        appDelegate?.popToSignIn()
+    }
+    
     /*
     // MARK: - Navigation
 

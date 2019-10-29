@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Root View Controller-->
+        <!--Profile-->
         <scene sceneID="jFe-iR-omW">
             <objects>
-                <tableViewController id="SnH-14-a3B" sceneMemberID="viewController">
+                <tableViewController id="SnH-14-a3B" customClass="ProfileViewController" customModule="swifty_companion" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="EVQ-Qc-2Te">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -33,7 +33,13 @@
                             <outlet property="delegate" destination="SnH-14-a3B" id="Mhb-4B-j6s"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="beb-Vz-7Zr"/>
+                    <navigationItem key="navigationItem" title="Profile" id="beb-Vz-7Zr">
+                        <barButtonItem key="rightBarButtonItem" title="Sign Out" id="H1a-61-9DZ">
+                            <connections>
+                                <action selector="signOutPressed:" destination="SnH-14-a3B" id="eFm-JW-ZXM"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BnU-dW-NSi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -65,7 +71,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="EM4-MS-2ZG" detailTextLabel="4QW-rO-sfU" imageView="Mys-nq-Zey" style="IBUITableViewCellStyleSubtitle" id="7Kp-wB-NcN">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userCell" textLabel="EM4-MS-2ZG" detailTextLabel="4QW-rO-sfU" imageView="Mys-nq-Zey" style="IBUITableViewCellStyleSubtitle" id="7Kp-wB-NcN">
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7Kp-wB-NcN" id="cYr-Vi-J3s">
@@ -87,6 +93,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Mys-nq-Zey">
+                                            <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </imageView>
                                     </subviews>

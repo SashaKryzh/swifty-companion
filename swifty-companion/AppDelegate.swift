@@ -20,10 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         var viewController: UIViewController
         
-        if (true) {
-            viewController = mainStoryboard.instantiateViewController(withIdentifier: "signInVC")
-        } else {
+        if IntraApi.getToken() != nil {
             viewController = mainStoryboard.instantiateViewController(withIdentifier: "mainVC")
+        } else {
+            viewController = mainStoryboard.instantiateViewController(withIdentifier: "signInVC")
         }
         
         self.window?.rootViewController = viewController
@@ -60,6 +60,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Code is missing")
             return false
         }
+    }
+    
+    func popToSignIn() {        self.window?.rootViewController?.navigationController?.dismiss(animated: true, completion: nil)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
