@@ -16,18 +16,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        var viewController: UIViewController
-        
-        if IntraApi.getToken() != nil {
-            viewController = mainStoryboard.instantiateViewController(withIdentifier: "mainVC")
-        } else {
-            viewController = mainStoryboard.instantiateViewController(withIdentifier: "signInVC")
-        }
-        
-        self.window?.rootViewController = viewController
-        self.window?.makeKeyAndVisible()
+//        self.window = UIWindow(frame: UIScreen.main.bounds)
+//        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//        var viewController: UIViewController
+//
+//        viewController = mainStoryboard.instantiateViewController(withIdentifier: "searchVC")
+//
+////        IntraApi.getToken { (token) in
+////            if token == nil {
+////                viewController = mainStoryboard.instantiateViewController(withIdentifier: "signInVC")
+////            } else {
+////                viewController = mainStoryboard.instantiateViewController(withIdentifier: "mainVC")
+////            }
+////        }
+//
+////        if IntraApi.getToken() != nil {
+////
+////        } else {
+////
+////        }
+//
+//        self.window?.rootViewController = viewController
+//        self.window?.makeKeyAndVisible()
         
         return true
     }
@@ -44,16 +54,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     
         if let code = params.first(where: { $0.name == "code" })?.value {
-            IntraApi.codeToToken(code: code, completition: { accessToken in
-                if let token = accessToken {
-                    print("Token: \(token)")
-                    DispatchQueue.main.async {
-                        self.window?.rootViewController?.performSegue(withIdentifier: "toMainVC", sender: nil)
-                    }
-                } else {
-                    print("Token is nil")
-                }
-            })
+//            IntraApi.codeToToken(code: code, completition: { accessToken in
+//                if let token = accessToken {
+//                    print("Token: \(token)")
+//                    DispatchQueue.main.async {
+//                        self.window?.rootViewController?.performSegue(withIdentifier: "toMainVC", sender: nil)
+//                    }
+//                } else {
+//                    print("Token is nil")
+//                }
+//            })
             return true
         } else {
             print("Code is missing")

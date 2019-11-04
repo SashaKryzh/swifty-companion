@@ -25,14 +25,14 @@ class ProfileViewController: UITableViewController {
     }
     
     func getAboutMe() {
-        IntraApi.aboutMe(completition: { user in
-            self.user = user
-            guard let user = self.user else {
-                print("User is empty")
-                return
-            }
-            print(user)
-        })
+//        IntraApi.aboutMe(completition: { user in
+//            self.user = user
+//            guard let user = self.user else {
+//                print("User is empty")
+//                return
+//            }
+//            print(user)
+//        })
     }
     
     func getUser(userLogin: String) {
@@ -47,7 +47,7 @@ class ProfileViewController: UITableViewController {
     }
     
     @IBAction func signOutPressed(_ sender: UIBarButtonItem) {
-        IntraApi.signOut()
+//        IntraApi.signOut()
         let appDelegate =  UIApplication.shared.delegate as? AppDelegate
         appDelegate?.popToSignIn()
     }

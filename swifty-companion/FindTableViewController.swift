@@ -14,6 +14,8 @@ class FindTableViewController: UITableViewController {
     
     var users: [IntraUser] = []
     
+    var selectedUser: IntraUser?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,7 +28,9 @@ class FindTableViewController: UITableViewController {
         navigationItem.searchController = searchController
         definesPresentationContext = true
         
-        updateUsers()
+        IntraApi.checkToken() { _ in
+            self.updateUsers()
+        }
     }
     
     func updateUsers() {
@@ -42,7 +46,8 @@ class FindTableViewController: UITableViewController {
         IntraApi.getUser(userLogin: login, completition: {
             user in
             if let user = user {
-                
+                self.selectedUser = user
+                self.performSegue(withIdentifier: "toDetailUser", sender: self)
             }
         })
     }
@@ -107,15 +112,16 @@ class FindTableViewController: UITableViewController {
     }
     */
 
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "toDetailUser" {
+            let vc = segue.destination as! DetailTableViewController
+            vc.user = selectedUser!
+        }
     }
-    */
 
 }
 
