@@ -44,10 +44,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     
         if let code = params.first(where: { $0.name == "code" })?.value {
-            print(code)
             IntraApi.codeToToken(code: code, completition: { accessToken in
                 if let token = accessToken {
-                    print(token)
+                    print("Token: \(token)")
                     DispatchQueue.main.async {
                         self.window?.rootViewController?.performSegue(withIdentifier: "toMainVC", sender: nil)
                     }

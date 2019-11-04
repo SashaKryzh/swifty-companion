@@ -13,8 +13,9 @@ class IntraApi {
     static let secret = "de1fdafbbe018cbf435e735ebefb52620cabaa5a2ba5349cc681f8dee4d95c16"
     
     static let baseURL = "https://api.intra.42.fr/v2"
+    static let unitFactoryID = 8
     
-    static let accessTokenKey = "accessTokenKey"
+    static let accessTokenKey = "accessTokenKey" // For local storing
     static var accessToken: String?
     
     static var user: IntraUser?
@@ -95,20 +96,27 @@ class IntraApi {
         task.resume()
     }
     
-    static func getUser(userLogin: String, completition: @escaping ((IntraUser) -> Void)) {
+    static func getUser(userLogin: String, completition: @escaping ((IntraUser?) -> Void)) {
         guard let token = accessToken else { return }
         
-        let url = URL(string: baseURL + "/\(userLogin.lowercased())")!
+        let url = URL(string: baseURL + "/users/\(userLogin.lowercased())")!
+        print(url)
         var request = URLRequest(url: url)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
         let task = URLSession.shared.dataTask(with: request, completionHandler: {
             (data, response, url) in
-            guard let data = data else { return }
-            print("JSON String: \(String(data: data, encoding: .utf8) ?? "")")
-            user = try? JSONDecoder().decode(IntraUser.self, from: data)
-            guard let user = user else { return }
-            DispatchQueue.main.async {
-                completition(user)
+            guard let data = data else {
+                completition(nil)
+                return
+            }
+            do {
+                let user = try JSONDecoder().decode(IntraUser.self, from: data)
+                DispatchQueue.main.async {
+                    completition(user)
+                }
+            } catch {
+                print(error)
             }
         })
         task.resume()
@@ -119,7 +127,8 @@ class IntraApi {
         
         var comp = URLComponents(string: baseURL + "/users")!
         comp.queryItems = [
-            URLQueryItem(name: "page", value: page.description)
+            URLQueryItem(name: "page", value: page.description),
+//            URLQueryItem(name: "campus_id", value: unitFactoryID.description),
         ]
         
         var request = URLRequest(url: comp.url!)
@@ -131,11 +140,6 @@ class IntraApi {
             print("JSON String: \(String(data: data, encoding: .utf8) ?? "")")
             
             do {
-//                let json = try JSONSerialization.jsonObject(with: data) as! Array<Dictionary<String, Any>>
-//                var users: [IntraUser] = []
-//                for user in json {
-//                    users.append(try! JSONDecoder().decode(IntraUser.self, from: D)
-//                }
                 let users = try JSONDecoder().decode([IntraUser].self, from: data)
                 DispatchQueue.main.async {
                     completition(users)

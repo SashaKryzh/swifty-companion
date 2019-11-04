@@ -16,12 +16,15 @@ class FindTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        // Seting up a SearchController
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search 42 login"
+        searchController.searchBar.delegate = self
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
         
         updateUsers()
     }
@@ -32,6 +35,23 @@ class FindTableViewController: UITableViewController {
             self.tableView.reloadData()
         })
     }
+    
+    var loginToSearch: String?
+    func searchForUser() {
+        guard let login = loginToSearch else { return }
+        IntraApi.getUser(userLogin: login, completition: {
+            user in
+            if let user = user {
+                
+            }
+        })
+    }
+    
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        self.view.endEditing(true)
+//        searchForUser()
+//        return false
+//    }
 
     // MARK: - Table view data source
 
@@ -97,4 +117,14 @@ class FindTableViewController: UITableViewController {
     }
     */
 
+}
+
+extension FindTableViewController: UISearchResultsUpdating, UISearchBarDelegate {
+    func updateSearchResults(for searchController: UISearchController) {
+        loginToSearch = searchController.searchBar.text!
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchForUser()
+    }
 }

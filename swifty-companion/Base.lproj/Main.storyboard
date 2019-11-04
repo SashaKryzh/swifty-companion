@@ -99,8 +99,19 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Intra Users" id="cha-AA-aDN"/>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="wdI-vC-7N9" id="FdU-29-v0Y"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nmB-9b-IsT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="wdI-vC-7N9">
+                    <connections>
+                        <outlet property="delegate" destination="Pue-o3-tHG" id="iza-8R-5oa"/>
+                        <outlet property="searchContentsController" destination="Pue-o3-tHG" id="4HA-Dk-qlT"/>
+                        <outlet property="searchResultsDataSource" destination="Pue-o3-tHG" id="ScF-dJ-z01"/>
+                        <outlet property="searchResultsDelegate" destination="Pue-o3-tHG" id="NJl-LZ-ccn"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="2803" y="-269"/>
         </scene>
