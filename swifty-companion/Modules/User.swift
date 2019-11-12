@@ -9,11 +9,9 @@ import Foundation
 struct IntraUser: Decodable {
     let id: Int
     let email, login, firstName, lastName: String?
-    let url: String
     let phone: String?
     let displayname: String?
-
-
+    let imageUrl: String?
     let correctionPoint: Int?
 
     
@@ -50,7 +48,7 @@ struct IntraUser: Decodable {
         phone = try container.decodeIfPresent(String.self, forKey: .phone)
         displayname = try container.decodeIfPresent(String.self, forKey: .displayname)
         correctionPoint = try container.decodeIfPresent(Int.self, forKey: .correctionPoint)
-        url = try container.decode(String.self, forKey: .url)
+        imageUrl = try container.decodeIfPresent(String.self, forKey: .imageURL)
     }
     
     var intValue: Int? { return nil }

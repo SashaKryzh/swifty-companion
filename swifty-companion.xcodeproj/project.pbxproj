@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F0222968237072070099887F /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0222967237072070099887F /* DetailTableViewController.swift */; };
+		F02CBC64237A993900CB8706 /* ProfileInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02CBC63237A993900CB8706 /* ProfileInfoTableViewCell.swift */; };
 		F04A3086235F09F300B3C0EE /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04A3085235F09F300B3C0EE /* ProfileViewController.swift */; };
 		F04A3088235F0EA500B3C0EE /* FindTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04A3087235F0EA500B3C0EE /* FindTableViewController.swift */; };
 		F08D25A42367321600BDCB81 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D25A32367321600BDCB81 /* User.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		F0222967237072070099887F /* DetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
+		F02CBC63237A993900CB8706 /* ProfileInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoTableViewCell.swift; sourceTree = "<group>"; };
 		F04A3085235F09F300B3C0EE /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F04A3087235F0EA500B3C0EE /* FindTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTableViewController.swift; sourceTree = "<group>"; };
 		F08D25A32367321600BDCB81 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				F04A3087235F0EA500B3C0EE /* FindTableViewController.swift */,
 				F0222967237072070099887F /* DetailTableViewController.swift */,
 				F08D25A52367356F00BDCB81 /* Extensions.swift */,
+				F02CBC63237A993900CB8706 /* ProfileInfoTableViewCell.swift */,
 				F04A3085235F09F300B3C0EE /* ProfileViewController.swift */,
 				F0963620235F28BF004B0DC0 /* LoginViewController.swift */,
 				F0B18F74235F064F00CEA910 /* Main.storyboard */,
@@ -288,6 +291,7 @@
 				F096361F235F1B6B004B0DC0 /* 42api.swift in Sources */,
 				F0222968237072070099887F /* DetailTableViewController.swift in Sources */,
 				F0963621235F28BF004B0DC0 /* LoginViewController.swift in Sources */,
+				F02CBC64237A993900CB8706 /* ProfileInfoTableViewCell.swift in Sources */,
 				F0B18F71235F064F00CEA910 /* AppDelegate.swift in Sources */,
 				F08D25A62367356F00BDCB81 /* Extensions.swift in Sources */,
 			);
