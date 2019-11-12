@@ -9,33 +9,51 @@
 import UIKit
 
 enum DetailPageSections: Int {
-    case main = 0
+    case main = 0,
+    skills,
+    project
 }
 
 class DetailTableViewController: UITableViewController {
 
     var user: IntraUser?
     
-    @IBOutlet weak var loginLabel: UILabel!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.title = user!.login
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case DetailPageSections.main.rawValue:
             return 1
+        case DetailPageSections.skills.rawValue:
+            return user?.cursusUsers?[0].skills.count ?? 0
+        case DetailPageSections.project.rawValue:
+            return user?.finishedProjects?.count ?? 0
         default:
             return 0
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        var title: String?
+        
+        if section == DetailPageSections.skills.rawValue {
+            title = "Skills"
+        }
+        if section == DetailPageSections.project.rawValue {
+            title = "Projects"
+        }
+        
+        return title
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -43,6 +61,23 @@ class DetailTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "mainCell", for: indexPath) as! ProfileInfoTableViewCell
             
             cell.update(user: user!)
+            
+            return cell
+        } else if indexPath.section == DetailPageSections.skills.rawValue {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "skillCell", for: indexPath)
+            
+            let skill = user!.cursusUsers![0].skills[indexPath.row]
+            cell.textLabel?.text = skill.name + " (" + skill.persantage.description + ")"
+            cell.detailTextLabel?.text = String(format: "%.2f", skill.level)
+            
+            return cell
+        } else if indexPath.section == DetailPageSections.project.rawValue {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "projectCell", for: indexPath)
+            
+            let project = user!.finishedProjects![indexPath.row]
+            cell.textLabel?.text = project.project.name
+            cell.detailTextLabel?.text = project.finalMark?.description
+            cell.detailTextLabel?.textColor = project.validated ?? true ? UIColor.green : UIColor.red
             
             return cell
         } else {

@@ -27,6 +27,9 @@ class ProfileInfoTableViewCell: UITableViewCell {
         if let url = URL(string: user.imageUrl ?? "") {
             updateImage(url: url)
         }
+        if let cursuses = user.cursusUsers  {
+            levelLabel.text = String(format: "%.2f", cursuses[0].level)
+        }
     }
     
     func updateImage(url: URL) {
