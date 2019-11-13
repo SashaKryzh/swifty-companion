@@ -1,0 +1,6 @@
+framework module Pods_swifty_companionTests {
+  umbrella header "Pods-swifty-companionTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

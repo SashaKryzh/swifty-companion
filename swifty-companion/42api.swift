@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import OAuthSwift
 
 class IntraApi {
     static let uid = "da438907119c5ef7d7cde41b0690c30e58a8899a67f0cfa31fea31b3c933b62c"
@@ -17,6 +18,11 @@ class IntraApi {
     
 //    static let accessTokenKey = "accessTokenKey" // For local storing
     static var accessToken: String?
+    
+    static let auth = OAuth2Swift(consumerKey: uid, consumerSecret: secret, authorizeUrl: "https://api.intra.42.fr/oauth/token", responseType: "token")
+    static let handle = auth.authorize(withCallbackURL: nil, scope: <#T##String#>, state: <#T##String#>, completionHandler: <#T##OAuth2Swift.TokenCompletionHandler##OAuth2Swift.TokenCompletionHandler##(Result<OAuthSwift.TokenSuccess, OAuthSwiftError>) -> Void#> grantType: "client_credentials") { (result) in
+        print(result)
+    }
     
 //    static var user: IntraUser?
     

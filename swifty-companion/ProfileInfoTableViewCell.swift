@@ -8,7 +8,6 @@
 
 import UIKit
 import MessageUI
-import OAuthSwift
 
 class ProfileInfoTableViewCell: UITableViewCell, MFMailComposeViewControllerDelegate {
     
