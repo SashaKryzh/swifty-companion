@@ -142,19 +142,19 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cIm-sF-QAd">
-                                                    <rect key="frame" x="166" y="260" width="42" height="125.5"/>
+                                                    <rect key="frame" x="166" y="260" width="42" height="116"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJy-k4-Iy4">
-                                                    <rect key="frame" x="166" y="395.5" width="42" height="20.5"/>
+                                                    <rect key="frame" x="166" y="386" width="42" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="rXt-r0-SGx">
-                                                    <rect key="frame" x="0.0" y="426" width="374" height="20.5"/>
+                                                    <rect key="frame" x="0.0" y="416.5" width="374" height="20.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Level" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r8e-Pd-sZ5">
                                                             <rect key="frame" x="0.0" y="0.0" width="40" height="20.5"/>
@@ -171,7 +171,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="1Q3-D7-DXn">
-                                                    <rect key="frame" x="0.0" y="456.5" width="374" height="20.5"/>
+                                                    <rect key="frame" x="0.0" y="447" width="374" height="20.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Corrections" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fDv-t5-Zof">
                                                             <rect key="frame" x="0.0" y="0.0" width="89.5" height="20.5"/>
@@ -188,20 +188,21 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="PeH-yU-ZvU">
-                                                    <rect key="frame" x="0.0" y="487" width="374" height="20.5"/>
+                                                    <rect key="frame" x="0.0" y="477.5" width="374" height="30"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1YZ-aB-r83">
-                                                            <rect key="frame" x="0.0" y="0.0" width="41" height="20.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="41" height="30"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0gF-jM-dm1">
-                                                            <rect key="frame" x="332" y="0.0" width="42" height="20.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o6f-50-hRC">
+                                                            <rect key="frame" x="328" y="0.0" width="46" height="30"/>
+                                                            <state key="normal" title="Button"/>
+                                                            <connections>
+                                                                <action selector="emailPressed:" destination="bFC-fo-YYz" eventType="touchUpInside" id="qKU-5V-B7A"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="pqG-25-ErY">
@@ -244,7 +245,7 @@
                                 <connections>
                                     <outlet property="correctionsLabel" destination="0d7-pO-Sjk" id="6iQ-ML-eat"/>
                                     <outlet property="displayNameLabel" destination="NJy-k4-Iy4" id="YNY-iI-qVH"/>
-                                    <outlet property="emailLabel" destination="0gF-jM-dm1" id="L8e-bK-pg7"/>
+                                    <outlet property="emailLabel" destination="o6f-50-hRC" id="IhJ-Fg-jT7"/>
                                     <outlet property="levelLabel" destination="gMs-P6-L5P" id="bPK-Vf-D0c"/>
                                     <outlet property="loginLabel" destination="cIm-sF-QAd" id="YzK-mL-v6O"/>
                                     <outlet property="phoneLabel" destination="fwT-sI-aN1" id="OrX-bg-Suq"/>

@@ -7,21 +7,26 @@
 //
 
 import UIKit
+import MessageUI
+import OAuthSwift
 
-class ProfileInfoTableViewCell: UITableViewCell {
+class ProfileInfoTableViewCell: UITableViewCell, MFMailComposeViewControllerDelegate {
+    
+    weak var vc: UIViewController!
+    var user: IntraUser!
 
     @IBOutlet weak var loginLabel: UILabel!
     @IBOutlet weak var displayNameLabel: UILabel!
     @IBOutlet weak var levelLabel: UILabel!
     @IBOutlet weak var correctionsLabel: UILabel!
-    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var emailLabel: UIButton!
     @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
     
     func update(user: IntraUser) {
         loginLabel.text = user.login
         displayNameLabel.text = user.displayname
-        emailLabel.text = user.email
+        emailLabel.setTitle(user.email, for: .normal)
         phoneLabel.text = user.phone
         correctionsLabel.text = user.correctionPoint?.description ?? "0"
         if let url = URL(string: user.imageUrl ?? "") {
@@ -53,6 +58,22 @@ class ProfileInfoTableViewCell: UITableViewCell {
         // Initialization code
     }
 
+    @IBAction func emailPressed(_ sender: UIButton) {
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setToRecipients(["\(user.email ?? "")"])
+            mail.setMessageBody("<p>Hello, \(user.login ?? "")!</p>", isHTML: true)
+            vc?.present(mail, animated: true)
+        } else {
+            print("Unable to send email")
+        }
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

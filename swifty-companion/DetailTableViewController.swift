@@ -60,6 +60,8 @@ class DetailTableViewController: UITableViewController {
         if indexPath.section == DetailPageSections.main.rawValue {
             let cell = tableView.dequeueReusableCell(withIdentifier: "mainCell", for: indexPath) as! ProfileInfoTableViewCell
             
+            cell.user = user
+            cell.vc = self
             cell.update(user: user)
             
             return cell
