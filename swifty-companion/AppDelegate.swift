@@ -53,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 return false
         }
     
-        if let code = params.first(where: { $0.name == "code" })?.value {
+        if let _ = params.first(where: { $0.name == "code" })?.value {
 //            IntraApi.codeToToken(code: code, completition: { accessToken in
 //                if let token = accessToken {
 //                    print("Token: \(token)")

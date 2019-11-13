@@ -20,7 +20,7 @@ class ProfileViewController: UITableViewController {
             print(userId)
         } else {
 //            getAboutMe()
-            getUser(userLogin: "okryzhan")
+//            getUser(userLogin: "okryzhan")
         }
     }
     
@@ -35,16 +35,16 @@ class ProfileViewController: UITableViewController {
 //        })
     }
     
-    func getUser(userLogin: String) {
-        IntraApi.getUser(userLogin: userLogin, completition: { user in
-            self.user = user
-            guard let user = self.user else {
-                print("User is empty")
-                return
-            }
-            print(user)
-        })
-    }
+//    func getUser(userLogin: String) {
+//        IntraApi.getUser(userLogin: userLogin, completition: { user in
+//            self.user = user
+//            guard let user = self.user else {
+//                print("User is empty")
+//                return
+//            }
+//            print(user)
+//        })
+//    }
     
     @IBAction func signOutPressed(_ sender: UIBarButtonItem) {
 //        IntraApi.signOut()

@@ -131,18 +131,23 @@ class IntraApi {
 //        task.resume()
 //    }
 //
-    static func getUser(userLogin: String, completition: @escaping ((IntraUser?) -> Void)) {
+    static func getUser(userLogin: String, completition: @escaping ((IntraUser?) -> Void), err: @escaping ((String) -> Void)) {
         guard let token = accessToken else { return }
         
-        let url = URL(string: baseURL + "/users/\(userLogin.lowercased())")!
-        print(url)
+        guard let url = URL(string: baseURL + "/users/\(userLogin.lowercased())") else {
+            err("Invalid login")
+            return
+        }
+        
         var request = URLRequest(url: url)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         let task = URLSession.shared.dataTask(with: request, completionHandler: {
             (data, response, url) in
             guard let data = data else {
-                completition(nil)
+                DispatchQueue.main.async {
+                    err("No user with this login.")
+                }
                 return
             }
             do {
@@ -152,6 +157,9 @@ class IntraApi {
                 }
             } catch {
                 print(error)
+                DispatchQueue.main.async {
+                    err("No user with this login.")
+                }
             }
         })
         task.resume()
@@ -201,7 +209,7 @@ class IntraApi {
         var request = URLRequest(url: url)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
-        let task = URLSession.shared.dataTask(with: url, completionHandler: {
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
             (data, response, error) in
             guard let data = data else { return }
             do {

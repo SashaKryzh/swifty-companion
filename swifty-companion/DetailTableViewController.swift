@@ -16,12 +16,12 @@ enum DetailPageSections: Int {
 
 class DetailTableViewController: UITableViewController {
 
-    var user: IntraUser?
+    var user: IntraUser!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = user!.login
+        self.title = user.login
     }
 
     // MARK: - Table view data source
@@ -35,9 +35,9 @@ class DetailTableViewController: UITableViewController {
         case DetailPageSections.main.rawValue:
             return 1
         case DetailPageSections.skills.rawValue:
-            return user?.cursusUsers?[0].skills.count ?? 0
+            return user.cursusUsers?[0].skills.count ?? 0
         case DetailPageSections.project.rawValue:
-            return user?.finishedProjects?.count ?? 0
+            return user.finishedProjects?.count ?? 0
         default:
             return 0
         }
@@ -60,13 +60,13 @@ class DetailTableViewController: UITableViewController {
         if indexPath.section == DetailPageSections.main.rawValue {
             let cell = tableView.dequeueReusableCell(withIdentifier: "mainCell", for: indexPath) as! ProfileInfoTableViewCell
             
-            cell.update(user: user!)
+            cell.update(user: user)
             
             return cell
         } else if indexPath.section == DetailPageSections.skills.rawValue {
             let cell = tableView.dequeueReusableCell(withIdentifier: "skillCell", for: indexPath)
             
-            let skill = user!.cursusUsers![0].skills[indexPath.row]
+            let skill = user.cursusUsers![0].skills[indexPath.row]
             cell.textLabel?.text = skill.name + " (" + skill.persantage.description + ")"
             cell.detailTextLabel?.text = String(format: "%.2f", skill.level)
             
@@ -74,7 +74,7 @@ class DetailTableViewController: UITableViewController {
         } else if indexPath.section == DetailPageSections.project.rawValue {
             let cell = tableView.dequeueReusableCell(withIdentifier: "projectCell", for: indexPath)
             
-            let project = user!.finishedProjects![indexPath.row]
+            let project = user.finishedProjects![indexPath.row]
             cell.textLabel?.text = project.project.name
             cell.detailTextLabel?.text = project.finalMark?.description
             cell.detailTextLabel?.textColor = project.validated ?? true ? UIColor.green : UIColor.red
