@@ -74,12 +74,10 @@ class DetailTableViewController: UITableViewController {
             
             return cell
         } else if indexPath.section == DetailPageSections.project.rawValue {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "projectCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "projectCell", for: indexPath) as! ProjectTableViewCell
             
             let project = user.finishedProjects![indexPath.row]
-            cell.textLabel?.text = project.project.name
-            cell.detailTextLabel?.text = project.finalMark?.description
-            cell.detailTextLabel?.textColor = project.validated ?? true ? UIColor.green : UIColor.red
+            cell.update(title: project.project.name, detail: project.finalMark?.description ?? "", color: project.validated ?? true ? UIColor.green : UIColor.red)
             
             return cell
         } else {

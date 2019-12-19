@@ -298,29 +298,41 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="projectCell" textLabel="vGl-n4-xz4" detailTextLabel="QCr-vm-0b4" style="IBUITableViewCellStyleValue1" id="fNF-5x-x2n">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="projectCell" id="fNF-5x-x2n" customClass="ProjectTableViewCell" customModule="swifty_companion" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="632" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fNF-5x-x2n" id="LZf-Ju-exr">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vGl-n4-xz4">
-                                            <rect key="frame" x="20" y="12" width="33.5" height="20.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BeW-ef-ayO" customClass="MarqueeLabel" customModule="MarqueeLabel">
+                                            <rect key="frame" x="20" y="11.5" width="339" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QCr-vm-0b4">
-                                            <rect key="frame" x="350" y="12" width="44" height="20.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="125" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J5I-dl-rZD">
+                                            <rect key="frame" x="364" y="11.5" width="30" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="30" id="KZm-vo-bCh"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="J5I-dl-rZD" firstAttribute="leading" secondItem="BeW-ef-ayO" secondAttribute="trailing" constant="5" id="O5M-Uh-yzt"/>
+                                        <constraint firstItem="J5I-dl-rZD" firstAttribute="trailing" secondItem="LZf-Ju-exr" secondAttribute="trailingMargin" id="XPN-nV-FUD"/>
+                                        <constraint firstItem="J5I-dl-rZD" firstAttribute="centerY" secondItem="LZf-Ju-exr" secondAttribute="centerY" id="lHF-KK-EG1"/>
+                                        <constraint firstItem="BeW-ef-ayO" firstAttribute="centerY" secondItem="LZf-Ju-exr" secondAttribute="centerY" id="o0H-6p-DVz"/>
+                                        <constraint firstItem="BeW-ef-ayO" firstAttribute="leading" secondItem="LZf-Ju-exr" secondAttribute="leadingMargin" id="uSc-PW-Q7S"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="Detail" destination="J5I-dl-rZD" id="YxK-AT-7HI"/>
+                                    <outlet property="Title" destination="BeW-ef-ayO" id="CVn-9N-tWV"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -331,7 +343,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Buf-Du-q0K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3822" y="-336"/>
+            <point key="canvasLocation" x="3821.739130434783" y="-336.16071428571428"/>
         </scene>
         <!--Sign In-->
         <scene sceneID="3iL-JO-TE4">
