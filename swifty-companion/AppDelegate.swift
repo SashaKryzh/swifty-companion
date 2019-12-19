@@ -20,21 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
 //        var viewController: UIViewController
 //
-//        viewController = mainStoryboard.instantiateViewController(withIdentifier: "searchVC")
-//
-////        IntraApi.getToken { (token) in
-////            if token == nil {
-////                viewController = mainStoryboard.instantiateViewController(withIdentifier: "signInVC")
-////            } else {
-////                viewController = mainStoryboard.instantiateViewController(withIdentifier: "mainVC")
-////            }
-////        }
-//
-////        if IntraApi.getToken() != nil {
-////
-////        } else {
-////
-////        }
+//        viewController = mainStoryboard.instantiateViewController(withIdentifier: "signInVC")
 //
 //        self.window?.rootViewController = viewController
 //        self.window?.makeKeyAndVisible()
@@ -53,17 +39,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 return false
         }
     
-        if let _ = params.first(where: { $0.name == "code" })?.value {
-//            IntraApi.codeToToken(code: code, completition: { accessToken in
-//                if let token = accessToken {
-//                    print("Token: \(token)")
-//                    DispatchQueue.main.async {
-//                        self.window?.rootViewController?.performSegue(withIdentifier: "toMainVC", sender: nil)
-//                    }
-//                } else {
-//                    print("Token is nil")
-//                }
-//            })
+        if let code = params.first(where: { $0.name == "code" })?.value {
+            IntraApi.codeToToken(code: code, completition: { accessToken in
+                if let token = accessToken {
+                    print("Token: \(token)")
+                    if let vc = self.window?.rootViewController as? UINavigationController {
+                            vc.performSegue(withIdentifier: "toSearchVC", sender: self)
+                    }
+                } else {
+                    print("Token is nil")
+                }
+            })
             return true
         } else {
             print("Code is missing")
@@ -71,7 +57,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func popToSignIn() {        self.window?.rootViewController?.navigationController?.dismiss(animated: true, completion: nil)
+    func popToSignIn() {
+        self.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

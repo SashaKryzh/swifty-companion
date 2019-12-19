@@ -31,8 +31,10 @@ class ProfileInfoTableViewCell: UITableViewCell, MFMailComposeViewControllerDele
         if let url = URL(string: user.imageUrl ?? "") {
             updateImage(url: url)
         }
-        if let cursuses = user.cursusUsers  {
-            levelLabel.text = String(format: "%.2f", cursuses[0].level)
+        if let cursus = user.cursusUsers?.first  {
+            levelLabel.text = String(format: "%.2f", cursus.level)
+        } else {
+            levelLabel.text = "hidden"
         }
     }
     

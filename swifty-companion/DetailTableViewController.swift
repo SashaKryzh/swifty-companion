@@ -35,7 +35,7 @@ class DetailTableViewController: UITableViewController {
         case DetailPageSections.main.rawValue:
             return 1
         case DetailPageSections.skills.rawValue:
-            return user.cursusUsers?[0].skills.count ?? 0
+            return user.cursusUsers?.first?.skills.count ?? 0
         case DetailPageSections.project.rawValue:
             return user.finishedProjects?.count ?? 0
         default:

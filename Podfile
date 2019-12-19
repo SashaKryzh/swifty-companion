@@ -6,7 +6,7 @@ target 'swifty-companion' do
   use_frameworks!
 
   # Pods for swifty-companion
-    pod 'OAuthSwift', '~> 2.0.0'
+    pod 'MarqueeLabel'
 
   target 'swifty-companionTests' do
     inherit! :search_paths

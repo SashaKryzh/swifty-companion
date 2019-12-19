@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rUe-bn-qTT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="F8e-a2-qHz">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -62,6 +62,22 @@
             </objects>
             <point key="canvasLocation" x="1796" y="464"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="o4q-wc-mXg">
+            <objects>
+                <navigationController id="8vW-5r-5p6" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ger-ut-dIb">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Pue-o3-tHG" kind="relationship" relationship="rootViewController" id="4cL-F6-LmM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xCN-lY-tfR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1977" y="-336"/>
+        </scene>
         <!--Search 42-->
         <scene sceneID="kKh-6h-tHe">
             <objects>
@@ -98,7 +114,13 @@
                             <outlet property="delegate" destination="Pue-o3-tHG" id="d5s-rd-g6x"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Search 42" id="cha-AA-aDN"/>
+                    <navigationItem key="navigationItem" title="Search 42" id="cha-AA-aDN">
+                        <barButtonItem key="leftBarButtonItem" title="Sign Out" id="p44-QG-8hK">
+                            <connections>
+                                <action selector="signOutPressed:" destination="Pue-o3-tHG" id="D7u-Yy-Hyw"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="searchDisplayController" destination="wdI-vC-7N9" id="FdU-29-v0Y"/>
                         <segue destination="jsn-Iv-Atf" kind="show" identifier="toDetailUser" id="hfi-SS-Aje"/>
@@ -114,7 +136,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="2803" y="-269"/>
+            <point key="canvasLocation" x="2884" y="-336"/>
         </scene>
         <!--Detail Table View Controller-->
         <scene sceneID="DHj-hP-QnD">
@@ -309,12 +331,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Buf-Du-q0K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3802.898550724638" y="-268.52678571428572"/>
+            <point key="canvasLocation" x="3822" y="-336"/>
         </scene>
         <!--Sign In-->
         <scene sceneID="3iL-JO-TE4">
             <objects>
-                <viewController storyboardIdentifier="signInVC" id="A7D-bi-cEf" customClass="LoginViewController" customModule="swifty_companion" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="A7D-bi-cEf" customClass="LoginViewController" customModule="swifty_companion" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DAp-cQ-vyb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -336,46 +358,27 @@
                         <viewLayoutGuide key="safeArea" id="ZlL-Aq-qv4"/>
                     </view>
                     <navigationItem key="navigationItem" title="Sign In" id="u7Z-5F-f3z"/>
-                    <connections>
-                        <segue destination="RwD-7h-opn" kind="presentation" identifier="toMainVC" id="L77-P0-exg"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8hX-I2-LHP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="877" y="-571"/>
+            <point key="canvasLocation" x="961" y="-336"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="zEb-va-FGv">
             <objects>
-                <navigationController id="F8e-a2-qHz" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="signInVC" id="F8e-a2-qHz" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="P0D-vK-NCl">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
                         <segue destination="A7D-bi-cEf" kind="relationship" relationship="rootViewController" id="2le-96-bUE"/>
+                        <segue destination="8vW-5r-5p6" kind="showDetail" identifier="toSearchVC" id="L4u-KR-Dzw"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="byE-1H-RGb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-10" y="-571"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="D3O-rC-v4L">
-            <objects>
-                <navigationController storyboardIdentifier="searchVC" id="rUe-bn-qTT" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="search" id="rkc-dd-HLt"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4sD-zJ-otK">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="Pue-o3-tHG" kind="relationship" relationship="rootViewController" id="7IQ-Lc-AKY"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2Ic-9A-7aK" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1796" y="-269"/>
+            <point key="canvasLocation" x="-64" y="-336"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Qew-65-ilm">
@@ -393,7 +396,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1it-iy-kMd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-10" y="153"/>
+            <point key="canvasLocation" x="877" y="463"/>
         </scene>
     </scenes>
 </document>

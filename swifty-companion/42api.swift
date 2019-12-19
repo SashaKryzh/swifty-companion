@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import OAuthSwift
 
 class IntraApi {
     static let uid = "da438907119c5ef7d7cde41b0690c30e58a8899a67f0cfa31fea31b3c933b62c"
@@ -16,51 +15,82 @@ class IntraApi {
     static let baseURL = "https://api.intra.42.fr/v2"
     static let unitFactoryID = 8
     
-//    static let accessTokenKey = "accessTokenKey" // For local storing
+    static let accessTokenKey = "accessTokenKey" // For local storing
     static var accessToken: String?
     
-    static let auth = OAuth2Swift(consumerKey: uid, consumerSecret: secret, authorizeUrl: "https://api.intra.42.fr/oauth/token", responseType: "token")
-    static let handle = auth.authorize(withCallbackURL: nil, scope: <#T##String#>, state: <#T##String#>, completionHandler: <#T##OAuth2Swift.TokenCompletionHandler##OAuth2Swift.TokenCompletionHandler##(Result<OAuthSwift.TokenSuccess, OAuthSwiftError>) -> Void#> grantType: "client_credentials") { (result) in
-        print(result)
+    static func authorize() {
+        if let url = URL(string: "https://api.intra.42.fr/oauth/authorize?client_id=da438907119c5ef7d7cde41b0690c30e58a8899a67f0cfa31fea31b3c933b62c&redirect_uri=swifty-companion%3A%2F%2Fswifty-companion&response_type=code") {
+            UIApplication.shared.open(url)
+        }
+    }
+
+    static func signOut() {
+        let defaults = UserDefaults.standard
+        defaults.removeObject(forKey: accessTokenKey)
+        accessToken = nil
+    }
+
+    static func codeToToken(code: String, completition: @escaping (_ accessToken: String?) -> Void) {
+        guard var comp = URLComponents(string: "https://api.intra.42.fr/oauth/token") else {
+            completition(nil)
+            return
+        }
+
+        let queryItems = [
+            URLQueryItem(name: "grant_type", value: "client_credentials"),
+            URLQueryItem(name: "client_id", value: uid),
+            URLQueryItem(name: "client_secret", value: secret),
+            URLQueryItem(name: "code", value: code),
+            URLQueryItem(name: "redirect_uri", value: "swifty-companion%3A%2F%2Fswifty-companion"),
+        ]
+        comp.queryItems = queryItems
+
+        var request = URLRequest(url: comp.url!)
+        request.httpMethod = "POST"
+
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let data = data else {
+                print("Data is nil")
+                DispatchQueue.main.async {
+                    completition(nil)
+                }
+                return
+            }
+
+            do {
+                let json = try JSONSerialization.jsonObject(with: data) as! Dictionary<String, Any>
+                print(json)
+                accessToken = json["access_token"] as? String
+                if let token = accessToken {
+                    saveToken(token: token)
+                }
+                DispatchQueue.main.async {
+                    completition(accessToken)
+                }
+            } catch {
+                print(error)
+            }
+
+        }
+        task.resume()
     }
     
-//    static var user: IntraUser?
-    
-//    static func signIn() {
-//        if let url = URL(string: "https://api.intra.42.fr/oauth/authorize?client_id=da438907119c5ef7d7cde41b0690c30e58a8899a67f0cfa31fea31b3c933b62c&redirect_uri=swifty-companion%3A%2F%2Fswifty-companion&response_type=code&scope=public%20profile%20projects%20forum") {
-//            UIApplication.shared.open(url)
-//        }
-//    }
+//    static func getToken(completititon: @escaping ((String) -> Void)) {
+//        var comp = URLComponents(string: "https://api.intra.42.fr/oauth/token")!
 //
-//    static func signOut() {
-//        let defaults = UserDefaults.standard
-//        defaults.removeObject(forKey: accessTokenKey)
-//        accessToken = nil
-//        user = nil
-//    }
-//
-//    static func codeToToken(code: String, completition: @escaping (_ accessToken: String?) -> Void) {
-//        guard var comp = URLComponents(string: "https://api.intra.42.fr/oauth/token") else {
-//            completition(nil)
-//            return
-//        }
-//
-//        let queryItems = [
+//        comp.queryItems = [
 //            URLQueryItem(name: "grant_type", value: "client_credentials"),
 //            URLQueryItem(name: "client_id", value: uid),
 //            URLQueryItem(name: "client_secret", value: secret),
-//            URLQueryItem(name: "code", value: code),
-//            URLQueryItem(name: "redirect_uri", value: "swifty-companion%3A%2F%2Fswifty-companion"),
 //        ]
-//        comp.queryItems = queryItems
 //
 //        var request = URLRequest(url: comp.url!)
 //        request.httpMethod = "POST"
 //
-//        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+//        let task = URLSession.shared.dataTask(with: request) {
+//            (data, response, error) in
 //            guard let data = data else {
 //                print("Data is nil")
-//                completition(nil)
 //                return
 //            }
 //
@@ -69,51 +99,16 @@ class IntraApi {
 //                print(json)
 //                accessToken = json["access_token"] as? String
 //                if let token = accessToken {
-//                    saveToken(token: token)
+//                    DispatchQueue.main.async {
+//                        completititon(token)
+//                    }
 //                }
-//                completition(accessToken)
 //            } catch {
 //                print(error)
 //            }
-//
 //        }
 //        task.resume()
 //    }
-    
-    static func getToken(completititon: @escaping ((String) -> Void)) {
-        var comp = URLComponents(string: "https://api.intra.42.fr/oauth/token")!
-        
-        comp.queryItems = [
-            URLQueryItem(name: "grant_type", value: "client_credentials"),
-            URLQueryItem(name: "client_id", value: uid),
-            URLQueryItem(name: "client_secret", value: secret),
-        ]
-
-        var request = URLRequest(url: comp.url!)
-        request.httpMethod = "POST"
-        
-        let task = URLSession.shared.dataTask(with: request) {
-            (data, response, error) in
-            guard let data = data else {
-                print("Data is nil")
-                return
-            }
-            
-            do {
-                let json = try JSONSerialization.jsonObject(with: data) as! Dictionary<String, Any>
-                print(json)
-                accessToken = json["access_token"] as? String
-                if let token = accessToken {
-                    DispatchQueue.main.async {
-                        completititon(token)
-                    }
-                }
-            } catch {
-                print(error)
-            }
-        }
-        task.resume()
-    }
     
 //    static func aboutMe(completition: @escaping ((IntraUser?) -> Void)) {
 //        if let user = user {
@@ -136,11 +131,12 @@ class IntraApi {
 //        })
 //        task.resume()
 //    }
-//
+
     static func getUser(userLogin: String, completition: @escaping ((IntraUser?) -> Void), err: @escaping ((String) -> Void)) {
         guard let token = accessToken else { return }
         
-        guard let url = URL(string: baseURL + "/users/\(userLogin.lowercased())") else {
+        // Percent encoding for handling " " "воаыдао"
+        guard let login = userLogin.lowercased().addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed), let url = URL(string: baseURL + "/users/\(login)") else {
             err("Invalid login")
             return
         }
@@ -200,21 +196,29 @@ class IntraApi {
         task.resume()
     }
     
-//    static func saveToken(token: String) {
-//        let defaults = UserDefaults.standard
-//        defaults.set(token, forKey: accessTokenKey)
-//    }
+    static func saveToken(token: String) {
+        let defaults = UserDefaults.standard
+        defaults.set(token, forKey: accessTokenKey)
+    }
+    
+    static func getToken() -> String? {
+        let defaults = UserDefaults.standard
+        accessToken = defaults.string(forKey: accessTokenKey)
+        return accessToken
+    }
     
     static func checkToken(completition: @escaping ((String) -> Void)) {
-        guard let token = accessToken else {
-            getToken(completititon: completition)
+        guard let token = getToken() else {
+            let appDelegate: AppDelegate? = UIApplication.shared.delegate as? AppDelegate
+            appDelegate?.popToSignIn()
+            authorize()
             return
         }
-        
+
         let url = URL(string: "https://api.intra.42.fr/oauth/token/info")!
         var request = URLRequest(url: url)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        
+
         let task = URLSession.shared.dataTask(with: request, completionHandler: {
             (data, response, error) in
             guard let data = data else { return }
@@ -222,7 +226,9 @@ class IntraApi {
                 let json = try JSONSerialization.jsonObject(with: data) as! Dictionary<String, Any>
                 DispatchQueue.main.async {
                     if let _ = json["error"] {
-                        getToken(completititon: completition)
+                        let appDelegate: AppDelegate? = UIApplication.shared.delegate as? AppDelegate
+                        appDelegate?.popToSignIn()
+                        authorize()
                     } else {
                         completition(accessToken!)
                     }

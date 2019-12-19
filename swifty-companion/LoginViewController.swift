@@ -13,11 +13,13 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        IntraApi.checkToken() { _ in
+            self.navigationController?.performSegue(withIdentifier: "toSearchVC", sender: self)
+        }
     }
     
     @IBAction func signInButtonTapped(_ sender: UIButton) {
-//        IntraApi.signIn()
+        IntraApi.authorize()
     }
     
     /*

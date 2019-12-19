@@ -26,6 +26,9 @@ class FindTableViewController: UITableViewController, UITableViewDataSourcePrefe
         IntraApi.checkToken() { _ in
             self.updateUsers()
         }
+    
+        self.navigationItem.hidesSearchBarWhenScrolling = true;
+        self.navigationItem.hidesBackButton = true;
     }
     
     func setSearchController() {
@@ -107,12 +110,14 @@ class FindTableViewController: UITableViewController, UITableViewDataSourcePrefe
     }
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-//        IntraApi.checkToken() {
-//            _ in
-//            self.addUsers()
-//        }
+        
     }
 
+    @IBAction func signOutPressed(_ sender: Any) {
+        IntraApi.signOut()
+        let appDelegate: AppDelegate? = UIApplication.shared.delegate as? AppDelegate
+        appDelegate?.popToSignIn()
+    }
 
     // MARK: - Navigation
     
